@@ -8,9 +8,11 @@ public class Player : MonoBehaviour
     public float speed = 1.5f;
     private Rigidbody body;
     private Animator animator;
+    private Health health;
 
     private void Start()
     {
+        health = GetComponent<Health>();
         body = GetComponent<Rigidbody>();
         animator = transform.GetChild(0).GetComponent<Animator>();
     }
@@ -37,6 +39,9 @@ public class Player : MonoBehaviour
             movementVector.y,
             movementVector.z * speed
             );
-
+    }
+    public void Hurt(int amount, float delay = 0)
+    {
+        StartCoroutine(health.TakeDamageDelay(amount, delay));
     }
 }
